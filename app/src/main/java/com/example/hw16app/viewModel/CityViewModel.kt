@@ -16,8 +16,10 @@ class CityViewModel(app: Application) : AndroidViewModel(app) {
     fun onCityClicked(city:City){
         if(!city.isFavorite){
             favoriteList.add(city)
+            city.isFavorite = true
         }else{
             favoriteList.remove(city)
+            city.isFavorite = false
         }
     }
 }

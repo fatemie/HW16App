@@ -26,7 +26,12 @@ class CityAdapter(var onCityClicked : CityClickHandler) :
 
         fun bind(city : City, onCityClicked: CityClickHandler){
             tvCityName.text = city.name
-            var favorite = false
+            var favorite = city.isFavorite
+            if(city.isFavorite){
+                ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+            }else{
+                ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+            }
             ivFavorite.setOnClickListener {
                 if (favorite){
                     ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
