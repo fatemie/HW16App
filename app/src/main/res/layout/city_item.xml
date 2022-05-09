@@ -7,7 +7,7 @@
     <LinearLayout
         android:id="@+id/llCity"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         android:orientation="horizontal">
 
         <TextView
@@ -23,7 +23,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:layout_margin="4dp"
             app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
 
     </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:dividerInsetStart="16dp"
+        app:dividerInsetEnd="16dp"/>
 </FrameLayout>
