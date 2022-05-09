@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hw16app.R
 import com.example.hw16app.databinding.FragmentFavoriteBinding
+import com.example.hw16app.model.City
 import com.example.hw16app.viewModel.CityViewModel
 
 class FavoriteFragment : Fragment() {
@@ -44,10 +45,18 @@ class FavoriteFragment : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                val city = viewHolder.adapterPosition
-                vModel.favoriteList.removeAt(city)
+                val position = viewHolder.adapterPosition
+                val city = vModel.favoriteList[position]
+                vModel.favoriteList.removeAt(position)
+                for(thisCity in vModel.cityList){
+                    if(thisCity == city){
+                        thisCity.isFavorite = false
+                    }
+                }
 
-                binding.favoriteCitysRecyclerView.adapter!!.notifyItemRemoved(city)
+
+
+                binding.favoriteCitysRecyclerView.adapter!!.notifyItemRemoved(position)
             }
         }
 
