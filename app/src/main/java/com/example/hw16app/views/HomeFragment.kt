@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.hw16app.R
 import com.example.hw16app.databinding.FragmentHomeBinding
+import com.example.hw16app.model.City
 import com.example.hw16app.viewModel.CityViewModel
 
 class HomeFragment : Fragment() {
@@ -29,9 +31,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun initList() {
-        val adapter = CityAdapter()
+        val adapter = CityAdapter({ city -> vModel.onCityClicked(city)})
         binding.citysRecyclerView.adapter = adapter
         adapter.submitList(vModel.cityList)
     }
+
+
 
 }

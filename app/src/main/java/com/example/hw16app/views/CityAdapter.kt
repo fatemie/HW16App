@@ -7,23 +7,35 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hw16app.R
 import com.example.hw16app.model.City
+import com.example.hw16app.viewModel.CityViewModel
 
-class CityAdapter() :
+typealias CityClickHandler = (City) -> Unit
+
+class CityAdapter(var onCityClicked : CityClickHandler) :
     ListAdapter<City, CityAdapter.ViewHolder>(CityDiffCallback) {
 
     class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
         var tvCityName = view.findViewById<TextView>(R.id.tvCityName)
         var ivFavorite = view.findViewById<ImageView>(R.id.ivFavorite)
 
-        fun bind(city : City){
+        fun bind(city : City, onCityClicked: CityClickHandler){
             tvCityName.text = city.name
+            var favorite = false
             ivFavorite.setOnClickListener {
-                ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+                if (favorite){
+                    ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+
+                }else{
+                    ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+                }
+                favorite = !favorite
+                onCityClicked(city)
             }
         }
     }
@@ -37,7 +49,7 @@ class CityAdapter() :
 
     override fun onBindViewHolder(holder: CityAdapter.ViewHolder, position: Int) {
         val city = getItem(position)
-        holder.bind(city)
+        holder.bind(city, onCityClicked)
     }
 
 }
