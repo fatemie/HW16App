@@ -8,16 +8,17 @@ import com.example.hw16app.model.City
 import com.example.hw16app.model.FavoriteCity
 
 object CityRepository {
-    var cityList = listOf(City(1,"تهران", false),
-        City(2,"اصفهان", false),
-        City(3,"مشهد", false),
-        City(4,"تبریز", false),
-        City(5,"کرج", false),
-        City(6,"رشت", false),
-        City(7,"قم", false),
-        City(8,"اردبیل", false),
-        City(9,"قزوین", false),
-        City(10,"بوشهر", false))
+   lateinit var cityList : List<City>
+    val city1 = City(1,"تهران", false)
+    val city2 =City(2,"اصفهان", false)
+    val city3 =City(3,"مشهد", false)
+    val city4 =City(4,"تبریز", false)
+    val city5 =City(5,"کرج", false)
+    val city6 =City(6,"رشت", false)
+    val city7 =City(7,"قم", false)
+    val city8 =City(8,"اردبیل", false)
+    val city9 =City(9,"قزوین", false)
+    val city10 =City(10,"بوشهر", false)
 
     var db: AppDatabase?=null
     var dao: CityDao?=null
@@ -26,12 +27,22 @@ object CityRepository {
         db= AppDatabase.getAppDatabase(context)
         dao=db?.cityDao()
     }
-    init {
-        insertCity(cityList)
+
+    fun addData(){
+        insertCity(city1)
+        insertCity(city2)
+        insertCity(city3)
+        insertCity(city4)
+        insertCity(city5)
+        insertCity(city6)
+        insertCity(city7)
+        insertCity(city8)
+        insertCity(city9)
+        insertCity(city10)
     }
 
 
-    fun insertCity(city: List<City>){
+    fun insertCity(city: City){
         dao?.insertAllCities(city)
     }
 
@@ -39,7 +50,7 @@ object CityRepository {
         dao?.insertAllFavoriteCity(favoriteCity)
     }
 
-    fun getAllCities() : LiveData<List<City>>? {
+    fun getAllCities() : List<City>? {
         return dao?.getAllCities()
     }
 

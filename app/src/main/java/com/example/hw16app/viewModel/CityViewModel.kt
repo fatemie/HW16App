@@ -9,15 +9,20 @@ import com.example.hw16app.repository.CityRepository
 
 class CityViewModel(app: Application) : AndroidViewModel(app) {
     lateinit var cityList : List<City>
-    var favoriteList = arrayListOf<City>()
+    lateinit var favoriteList : LiveData<List<FavoriteCity>>
 
     init {
         CityRepository.initDB(app.applicationContext)
-        cityList = CityRepository.cityList
+        cityList = CityRepository.getAllCities()!!
+        if(cityList.isEmpty()){
+            CityRepository.addData()
+            cityList = CityRepository.getAllCities()!!
+        }
+        favoriteList = CityRepository.getAllFavoriteCities()!!
     }
 
 
-    fun addCity(city: List<City>) {
+    fun addCity(city: City) {
         CityRepository.insertCity(city)
     }
 
@@ -29,7 +34,7 @@ class CityViewModel(app: Application) : AndroidViewModel(app) {
         CityRepository.deleteCity(favoriteCity)
     }
 
-    fun getAllCities(): LiveData<List<City>>? {
+    fun getAllCities(): List<City>? {
         return CityRepository.getAllCities()
     }
 
@@ -38,12 +43,16 @@ class CityViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun onCityClicked(city:City){
+        val favoriteCity = FavoriteCity(city.id, city.name )
         if(!city.isFavorite){
-            favoriteList.add(city)
+            //favoriteList.add(city)
+                addFavoriteCity(favoriteCity)
             city.isFavorite = true
         }else{
-            favoriteList.remove(city)
+            //favoriteList.remove(city)
+                deleteCity(favoriteCity)
             city.isFavorite = false
         }
+        CityRepository.insertCity(city)
     }
 }

@@ -11,15 +11,16 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hw16app.R
 import com.example.hw16app.model.City
+import com.example.hw16app.model.FavoriteCity
 
 
 class FavoriteAdapter() :
-    ListAdapter<City, FavoriteAdapter.ViewHolder>(FavoriteDiffCallback) {
+    ListAdapter<FavoriteCity, FavoriteAdapter.ViewHolder>(FavoriteDiffCallback) {
 
     class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
         var tvName = view.findViewById<TextView>(R.id.favoriteCityName)
 
-        fun bind(city: City){
+        fun bind(city: FavoriteCity){
             tvName.text = city.name
         }
     }
@@ -39,12 +40,12 @@ class FavoriteAdapter() :
 
 }
 
-object FavoriteDiffCallback : DiffUtil.ItemCallback<City>() {
-    override fun areItemsTheSame(oldItem: City, newItem: City): Boolean {
+object FavoriteDiffCallback : DiffUtil.ItemCallback<FavoriteCity>() {
+    override fun areItemsTheSame(oldItem: FavoriteCity, newItem: FavoriteCity): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: City, newItem: City): Boolean {
+    override fun areContentsTheSame(oldItem: FavoriteCity, newItem: FavoriteCity): Boolean {
         return oldItem.name == newItem.name
     }
 }

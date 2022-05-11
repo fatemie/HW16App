@@ -11,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.hw16app.R
 import com.example.hw16app.databinding.FragmentHomeBinding
 import com.example.hw16app.model.City
+import com.example.hw16app.model.FavoriteCity
+import com.example.hw16app.repository.CityRepository
 import com.example.hw16app.viewModel.CityViewModel
 
 class HomeFragment : Fragment() {
