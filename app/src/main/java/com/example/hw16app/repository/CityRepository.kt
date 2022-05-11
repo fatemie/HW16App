@@ -1,19 +1,53 @@
 package com.example.hw16app.repository
 
+import android.content.Context
+import androidx.lifecycle.LiveData
+import com.example.hw16app.database.AppDatabase
+import com.example.hw16app.database.CityDao
 import com.example.hw16app.model.City
+import com.example.hw16app.model.FavoriteCity
 
 object CityRepository {
-    var cityList = arrayListOf<City>()
+    var cityList = listOf(City(1,"تهران", false),
+        City(2,"اصفهان", false),
+        City(3,"مشهد", false),
+        City(4,"تبریز", false),
+        City(5,"کرج", false),
+        City(6,"رشت", false),
+        City(7,"قم", false),
+        City(8,"اردبیل", false),
+        City(9,"قزوین", false),
+        City(10,"بوشهر", false))
+
+    var db: AppDatabase?=null
+    var dao: CityDao?=null
+
+    fun initDB(context: Context){
+        db= AppDatabase.getAppDatabase(context)
+        dao=db?.cityDao()
+    }
     init {
-        cityList.add(City("تهران", false))
-        cityList.add(City("اصفهان", false))
-        cityList.add(City("مشهد", false))
-        cityList.add(City("تبریز", false))
-        cityList.add(City("کرج", false))
-        cityList.add(City("رشت", false))
-        cityList.add(City("قم", false))
-        cityList.add(City("اردبیل", false))
-        cityList.add(City("قزوین", false))
-        cityList.add(City("بوشهر", false))
+        insertCity(cityList)
+    }
+
+
+    fun insertCity(city: List<City>){
+        dao?.insertAllCities(city)
+    }
+
+    fun insertFavoriteCity( favoriteCity: FavoriteCity){
+        dao?.insertAllFavoriteCity(favoriteCity)
+    }
+
+    fun getAllCities() : LiveData<List<City>>? {
+        return dao?.getAllCities()
+    }
+
+    fun getAllFavoriteCities() : LiveData<List<FavoriteCity>>? {
+        return dao?.getAllFavoriteCities()
+    }
+
+    fun deleteCity(favoriteCity: FavoriteCity){
+        dao?.delete(favoriteCity)
     }
 }

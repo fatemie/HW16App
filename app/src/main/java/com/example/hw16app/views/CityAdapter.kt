@@ -35,7 +35,6 @@ class CityAdapter(var onCityClicked : CityClickHandler) :
             ivFavorite.setOnClickListener {
                 if (favorite){
                     ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-
                 }else{
                     ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
                 }
